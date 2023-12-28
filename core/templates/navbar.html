@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg p-3 sticky-top bg-body-tertiary shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand fs-3" href="{% url 'home'%}">Mamar Bank </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <div class="d-flex ms-auto gap-2 navs justify-content-around align-items-center flex-wrap">
+        {% if request.user.is_authenticated %}
+      
+          <a class="text-decoration-none text-dark fw-bold " href="{% url 'report'%}">Report</a>
+          <a class="  text-decoration-none text-dark fw-bold " href="{% url 'deposit'%}">Deposit</a>
+          <a class="  text-decoration-none text-dark fw-bold " href="{% url "withdrow"%}">Withdrow</a>
+          <a class="  text-decoration-none text-dark fw-bold " href="{% url 'loan'%}">Loan</a>
+          <a class="  text-decoration-none text-dark fw-bold " href="{% url 'transfer'%}">Transfer Now</a> 
+          <a class="ms-5 text-decoration-none text-dark fw-bold">Welcome, {{user.username}} (balance: {{request.user.account.balance}})</a>
+          
+        <button class="btn btn-success mx-3" type="submit">
+          <a href="{% url 'profile' %}" class="text-decoration-none text-light">
+            profile
+          </a>
+        </button>
+        
+
+        <button class="btn btn-success mx-3" type="submit">
+          <a href="{% url 'logout' %}" class="text-decoration-none text-light">
+            Logout
+          </a>
+        </button>
+        {% else %}
+        <button class="btn btn-success update mx-3" type="submit">
+          <a href="{% url 'register'%}" class="text-decoration-none text-light">
+            Sing Up
+          </a>
+        </button>
+
+        <button class="btn btn-warning mx-3" type="submit">
+          <a href="{% url 'login'%}" class="text-decoration-none text-light">
+            Log In
+          </a>
+        </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>

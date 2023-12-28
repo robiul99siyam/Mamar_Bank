@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <p class="text-danger">{{ error }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <div class="border shadow w-50 mt-5 p-5 mb-5 m-auto rounded">
+        <h1 class="border shadow-sm rounded p-1 text-center">Log In</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            {% for hidden_field in form.hidden_fields %}
+                {{ hidden_field }}
+            {% endfor %}
+
+            {% for field in form.visible_fields %}
+                <div class="mb-4">
+                    <label  for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+                    <input class="shadow form-control" name="{{ field.name }}" id="{{ field.id_for_label }}" type="{{ field.widget_type }}">
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary m-auto px-5">submit</button>
+
+        </form>
+    </div>
+{% endblock %}

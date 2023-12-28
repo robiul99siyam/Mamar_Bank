@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags%}
+{% block content %}
+<div  class='mt-5  mb-5  m-auto shadow w-50'>
+  <form method="post" class='w-50  m-auto  mt-5 mb-5 '>
+    <h2>Transfer Money</h2>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button class="btn btn-success px-5 mb-5" type="submit">Transfer</button>
+  </form>
+</div>
+{% endblock %}

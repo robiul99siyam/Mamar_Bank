@@ -1,0 +1,9 @@
+@media (max-width: 576px) { 
+    body{
+        background-color: red;
+    }
+    .col-5 {
+        flex: 0 0 auto;
+        width: 112.666667%;
+    }
+ }
