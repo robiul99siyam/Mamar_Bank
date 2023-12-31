@@ -18,6 +18,7 @@ from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage ,EmailMultiAlternatives
 class TranscationCreateMixins(LoginRequiredMixin, CreateView):
+
     template_name = "transaction.html"
     title = ""
     model = UserTranscation
@@ -229,9 +230,12 @@ class TransferView(LoginRequiredMixin, CreateView):
             sender_user.balance -= amount
             receiver_user.balance += amount
             sender_user.save()
-            receiver_user.save()
             messages.success(self.request,'Money Transfer Successfully !')
+            send_transfer_email(self.request.user,'Transfer Maney',amount,'ts.html')
+            receiver_user.save()
             return super().form_valid(form)
         else:
             form.add_error("amount", "Insufficient funds")
             return super().form_invalid(form)
+
+

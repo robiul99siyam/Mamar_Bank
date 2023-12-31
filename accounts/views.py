@@ -8,7 +8,8 @@ from django.core.mail import EmailMultiAlternatives
 from .forms import UserRegistrationForm, UpdateUser
 from django.template.loader import render_to_string
 from django.contrib import messages
-
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 class UserRegistrationView(FormView):
     template_name = "register.html"
@@ -54,3 +55,16 @@ class UserUpdate(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+def password(request):
+    if request.method == "POST":
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "password change successfully ")
+            update_session_auth_hash(request, form.user)
+            return redirect("home")
+    else:
+        form = PasswordChangeForm(user=request.user)
+    return render(request, "password.html", {"form": form, "type": "Password change now "})
